@@ -1,0 +1,10 @@
+verif_x509.txt
+check_cert.py
+#pour les environnement
+envs
+pip
+#Pour django
+db.sqlite3
+staticfiles/
+*.pyc
+__pycache__/

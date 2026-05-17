@@ -1,0 +1,209 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+  background-image: url('bg1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+background-color: #050a12; /* Fond de secours très sombre */
+  color: #85B7EB;
+  min-height: 100vh;
+}
+
+/* ── Container ── */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* ── Navbar ── */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 68px;
+  width: 100vw;                        /* pleine largeur de l'écran */
+  margin-left: calc(-50vw + 50%);      /* sort du container pour aller bord à bord */
+  background: rgba(4, 44, 83, 1);      /* bleu plein, plus de transparence */
+  border-bottom: 2px solid #185FA5;    /* ligne bleue pleine visible */
+  overflow: visible;
+}
+
+/* ── Logo à l'extrémité gauche ── */
+.img {
+  display: flex;
+  align-items: center;
+  position: relative;
+  top: 18px;
+  z-index: 200;
+  margin-left: 0;
+  margin-right: auto;
+  filter: drop-shadow(0 4px 16px rgba(4, 44, 83, 0.6));
+}
+
+.img img {
+  height: 200px;
+  width: auto;
+}
+
+/* ── Nav links ── */
+.nav-list {
+  display: flex;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-list li a {
+  display: block;
+  padding: 9px 22px;
+  color: #B5D4F4;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 7px;
+  border: 0.5px solid transparent;
+  letter-spacing: 0.3px;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.nav-list li a:hover,
+.nav-list li a.active {
+  color: #E6F1FB;
+  background: rgba(24, 95, 165, 0.45);
+  border-color: rgba(55, 138, 221, 0.35);
+}
+
+a {
+  text-decoration: none;
+}
+
+/* ── Welcome Section & Content Left ── */
+.welcome-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 80px 50px;
+    text-align: left;
+}
+
+.content-left {
+    max-width: 650px;
+    /* Ajout d'un léger fond sombre pour isoler le texte des lignes de l'image */
+    background: rgba(5, 15, 25, 0.6); 
+    padding: 40px;
+    border-radius: 15px;
+    backdrop-filter: blur(4px); /* Effet de flou sur le fond */
+    border-left: 4px solid #00D4FF; /* Rappel du néon de l'image */
+}
+
+/* ── Titres ultra-visibles ── */
+#Bonjour {
+    font-size: 2.8rem;
+    color: #FFFFFF; /* Blanc pur pour un contraste maximal */
+    margin-bottom: 5px;
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.5); /* Lueur néon */
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+#theme {
+    font-size: 1.6rem;
+    color: #00D4FF; /* Bleu cyan comme sur l'image */
+    font-weight: 700;
+    margin-top: 5px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+    opacity: 0;
+    animation: slideRight 0.8s ease-out 0.3s forwards;
+}
+
+/* ── Description et blabla ── */
+.description-text {
+    margin-top: 30px;
+    line-height: 1.8;
+    color: #DAE9F5; /* Gris très clair bleuté */
+    font-size: 1.1rem;
+    opacity: 0;
+    animation: fadeIn 1s ease-out 0.6s forwards;
+}
+
+.status-line {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #00D4FF, transparent); /* Dégradé néon */
+    margin: 25px 0;
+    border-radius: 2px;
+}
+
+.sub-description {
+    font-size: 1.05rem;
+    color: #B5D4F4; /* Bleu clair */
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+/* ── Animations ── */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideRight {
+    from { opacity: 0; transform: translateX(-40px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+.footer {
+  margin-top: 50px;
+  padding: 15px 40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: rgba(4, 44, 83, 1);
+  border-top: 2px solid #185FA5;
+
+  color: #B5D4F4;
+  font-size: 13px;
+}
+
+/* texte gauche */
+.footer-left p {
+  margin: 0;
+  color: #85B7EB;
+}
+
+/* liens horizontaux */
+.footer-center {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-center a {
+  color: #B5D4F4;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.2s;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.footer-center a:hover {
+  color: #00D4FF;
+  background: rgba(24, 95, 165, 0.25);
+}
