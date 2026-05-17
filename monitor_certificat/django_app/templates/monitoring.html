@@ -1,112 +1,177 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monitoring SSL Pro</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'monitor.css' %}">   
-</head>
-<body>
 
-<div id="overlay" class="overlay" onclick="closeAll()"></div>
+{% block content %}
 
-<div class="container">
-    <div class="navbar">
-        <div class="img">
-            <img src="{% static 'logo_ssl_rb.png' %}" alt="Logo">
-        </div>
-        <ul class="nav-list">
-            <li><a href="{% url 'accueil' %}">Accueil</a></li>
-            <li><a href="{% url 'index' %}">Certificats</a></li>
-            <li><a href="{% url 'monitoring' %}" class="active">Monitoring</a></li>
-            <li><a href="#apropos">À propos</a></li>
-        </ul>
-    </div>     
+<link rel="stylesheet"
+      type="text/css"
+      href="{% static 'monitor.css' %}">
 
-    <div class="cards-container">
+<div id="overlay"
+     class="overlay"
+     onclick="closeAll()">
+</div>
+
+<div class="cards-container">
+
     {% for host in hosts %}
-        <div class="card" id="card-{{ host.id }}" onclick="toggleFullScreen({{ host.id }})">
-            <span class="close-btn" onclick="event.stopPropagation(); closeAll()">&times;</span>
-            
-            <div class="card-header">
-                <div class="status-box">
-                    <div class="scanner-line"></div>
-                    <span class="status-dot"></span>
-                    <span class="status-label">SYSTEM ONLINE</span>
-                </div>
-                <h2>{{ host.hostname }}</h2>
-                <div class="port-tag">PORT {{ host.port }}</div>
+
+    <div class="card"
+         id="card-{{ host.id }}"
+         onclick="toggleFullScreen({{ host.id }})">
+
+        <span class="close-btn"
+              onclick="event.stopPropagation(); closeAll()">
+            &times;
+        </span>
+
+        <div class="card-header">
+
+            <div class="status-box">
+
+                <div class="scanner-line"></div>
+
+                <span class="status-dot"></span>
+
+                <span class="status-label">
+                    SYSTEM ONLINE
+                </span>
+
             </div>
 
-            <div class="details" id="details-{{ host.id }}">
-                <div class="dashboard-wrapper">
-                    <h3 class="panel-title">Fiche Technique de Sécurité</h3>
-                    <div class="dash-grid">
-                        {% if host.certificat %}
-                            <div class="dash-box" style="--d:1"><strong>N° SÉRIE</strong><p>{{ host.certificat.n_serie }}</p></div>
-                            <div class="dash-box" style="--d:2"><strong>SUJET</strong><p>{{ host.certificat.subject }}</p></div>
-                            <div class="dash-box" style="--d:3"><strong>VALIDE DU</strong><p>{{ host.certificat.date_debut }}</p></div>
-                            <div class="dash-box expire" style="--d:4"><strong>EXPIRE LE</strong><p>{{ host.certificat.date_expiration }}</p></div>
-                            <div class="dash-box" style="--d:5"><strong>SIGNATURE</strong><p>{{ host.certificat.algo_sign }}</p></div>
-                            <div class="dash-box" style="--d:6"><strong>TYPE DE CLÉ</strong><p>{{ host.certificat.alg_pub_key }}</p></div>
-                            <div class="dash-box wide" style="--d:7"><strong>EMPREINTE NUMÉRIQUE (SHA-256)</strong><p>{{ host.certificat.empreinte }}</p></div>
-                        {% else %}
-                            <div class="no-data"> Données de certificat non disponibles</div>
-                        {% endif %}
-                    </div>
-                </div>
+            <h2>{{ host.hostname }}</h2>
+
+            <div class="port-tag">
+                PORT {{ host.port }}
             </div>
-            <form method="POST" action="{% url 'monitoring' %}">
-        {% csrf_token %}
 
-        <input type="hidden" name="host_id" value="{{ host.id }}">
-
-        <button type="submit"
-                name="action"
-                value="supprimer"
-                class="btn"
-                onclick="return confirm('Supprimer ce host ?')">
-            Supprimer
-        </button>
-    </form>
         </div>
-    {% endfor %}
+
+        <div class="details"
+             id="details-{{ host.id }}">
+
+            <div class="dashboard-wrapper">
+
+                <h3 class="panel-title">
+                    Fiche Technique de Sécurité
+                </h3>
+
+                <div class="dash-grid">
+
+                    {% if host.certificat %}
+
+                    <div class="dash-box" style="--d:1">
+                        <strong>N° SÉRIE</strong>
+                        <p>{{ host.certificat.n_serie }}</p>
+                    </div>
+
+                    <div class="dash-box" style="--d:2">
+                        <strong>SUJET</strong>
+                        <p>{{ host.certificat.subject }}</p>
+                    </div>
+
+                    <div class="dash-box" style="--d:3">
+                        <strong>VALIDE DU</strong>
+                        <p>{{ host.certificat.date_debut }}</p>
+                    </div>
+
+                    <div class="dash-box expire" style="--d:4">
+                        <strong>EXPIRE LE</strong>
+                        <p>{{ host.certificat.date_expiration }}</p>
+                    </div>
+
+                    <div class="dash-box" style="--d:5">
+                        <strong>SIGNATURE</strong>
+                        <p>{{ host.certificat.algo_sign }}</p>
+                    </div>
+
+                    <div class="dash-box" style="--d:6">
+                        <strong>TYPE DE CLÉ</strong>
+                        <p>{{ host.certificat.alg_pub_key }}</p>
+                    </div>
+
+                    <div class="dash-box wide" style="--d:7">
+                        <strong>EMPREINTE NUMÉRIQUE (SHA-256)</strong>
+                        <p>{{ host.certificat.empreinte }}</p>
+                    </div>
+
+                    {% else %}
+
+                    <div class="no-data">
+                        Données de certificat non disponibles
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <form method="POST"
+              action="{% url 'monitoring' %}">
+
+            {% csrf_token %}
+
+            <input type="hidden"
+                   name="host_id"
+                   value="{{ host.id }}">
+
+            <button type="submit"
+                    name="action"
+                    value="supprimer"
+                    class="btn"
+                    onclick="return confirm('Supprimer ce host ?')">
+
+                Supprimer
+
+            </button>
+
+        </form>
+
     </div>
+
+    {% endfor %}
+
 </div>
 
 <script>
+
 function toggleFullScreen(id) {
+
     const card = document.getElementById("card-" + id);
     const overlay = document.getElementById("overlay");
-    
+
     if (card.classList.contains("fullscreen")) {
+
         closeAll();
+
     } else {
+
         closeAll();
+
         card.classList.add("fullscreen");
+
         overlay.classList.add("active");
+
         document.body.style.overflow = "hidden";
     }
 }
 
 function closeAll() {
-    document.querySelectorAll('.card').forEach(c => c.classList.remove('fullscreen'));
-    document.getElementById('overlay').classList.remove('active');
+
+    document
+        .querySelectorAll('.card')
+        .forEach(c => c.classList.remove('fullscreen'));
+
+    document
+        .getElementById('overlay')
+        .classList.remove('active');
+
     document.body.style.overflow = 'auto';
 }
-</script>
-<footer id="apropos" class="footer">
-    <div class="footer-left">
-        <p>© Ny Aro 2026 - All rights reserved</p>
-    </div>
 
-    <div class="footer-center">
-        <a href="mailto:david31.john31@gmail.com" target="_blank"><img src="{% static 'gmail.png' %}" alt="image_gmail" width="30px"></a>
-        <a href="http://wa.me/261332013645" target="_blank"><img src="{% static 'whatsapp.png' %}" alt="image_whatsapp" width="30px"></a>
-        <a href="https://www.linkedin.com/in/nyaro-fameno-6720963aa?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"><img src="{% static 'noir.png' %}" alt="image_linkdin" width="30px"></a>
-        <a href="https://www.facebook.com/share/18HfT6S3RW/?mibextid=wwXIfr" target="_blank"><img src="{% static 'facebook.png' %}" alt="image_facebook" width="30px"></a>
-    </div>
-</footer>
-</body>
-</html>
+</script>
+
+{% endblock %}

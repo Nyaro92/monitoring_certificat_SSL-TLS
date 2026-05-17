@@ -23,15 +23,22 @@ body {
 background-color: #050a12; /* Fond de secours très sombre */
   color: #85B7EB;
   min-height: 100vh;
-}
 
+  display: flex;
+flex-direction: column;
+}
 .container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
-}
 
+  /* IMPORTANT */
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+}
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -269,7 +276,8 @@ a {
    FOOTER MODERNE DEVOPS
 ───────────────────────────── */
 .footer {
-  margin-top: 50px;
+  margin-top: auto;
+
   padding: 15px 40px;
 
   display: flex;
